@@ -6,13 +6,47 @@
 // 6. Give the user their winnings or take if they lose 
 // 7. Play again
 
-const prompt = require("prompt-sync")();
+const prompt = require("prompt-sync")(); // imports 
 
 
 
+const ROWS = 3;
+const COLS = 3;
 
+const SYMBOLS_COUNT = {
+    A: 2,
+    B: 4,
+    C: 6,
+    D: 8
+}
 
+const SYMBOLS_VALUES = {
+    A: 5,
+    B: 4,
+    C: 3,
+    D: 2
+}
 
+const spin = () => {
+    const symbols = [];
+    for (const [symbol, count] of Object.entries(SYMBOLS_COUNT)) {
+        for (let i = 0; i < count; i++) {
+            symbols.push(symbol)
+        }
+    }
+    //each nested array is a column
+    const reel = [[[], [], []]];
+    for (let i = 0; i < COLS; i++){
+        const reelSymbols = [...symbols];
+        for(let j = 0; j<ROWS; j++){
+            const randomIndex = Math.floor(Math.random() * reelSymbols.length)
+                const selectedSymbol = reelSymbols[randomIndex]
+                reels[i].push(selectedSymbol);
+                reelSymbols.splice(randomIndex, 1);
+        }
+    }
+    return reels;
+};
 
 
 
@@ -57,11 +91,10 @@ const getBet = (balance, lines) => {
         else {
             return numberBet;
         }
-
     }
 };
 
-
-    let balance = deposit();
-    const numberOfLines = getNumberOfLines();
-    const bet = getBet(balance, numberOfLines);
+const reels = spin();
+let balance = deposit();
+const numberOfLines = getNumberOfLines();
+const bet = getBet(balance, numberOfLines);
